@@ -1,0 +1,1 @@
+export const LIVE_API = `https://www.swiggy.com/dapi/restaurants/list/v5?`
