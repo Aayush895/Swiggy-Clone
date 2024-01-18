@@ -1,9 +1,9 @@
-import Registeration from './Components/Registeration/Registeration'
+import Home from './Components/Registeration/Home'
 
 function App() {
   return (
     <>
-      <Registeration />
+      <Home />
     </>
   )
 }

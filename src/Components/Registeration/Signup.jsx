@@ -2,7 +2,7 @@ import { FaLocationCrosshairs } from 'react-icons/fa6'
 import { useState, useEffect } from 'react'
 import { LIVE_API } from '../../utils'
 import { auth } from '../../firebase'
-import { onAuthStateChanged } from 'firebase/auth'
+import { onAuthStateChanged, signOut } from 'firebase/auth'
 import SignupForm from './SignupForm'
 import LoginForm from './LoginForm'
 
@@ -54,7 +54,7 @@ const Signup = () => {
   }
 
   function showLoginForm() {
-    if(login) {
+    if (login) {
       setLogin(false)
     } else {
       setLogin(true)
@@ -70,15 +70,37 @@ const Signup = () => {
             alt="logo"
           />
         </div>
-        <div>
-          <button className="px-10 font-bold" onClick={showLoginForm}>Login</button>
-          <button
-            className="bg-black px-6 py-2 text-white"
-            onClick={showSignup}
-          >
-            Sign up
-          </button>
-        </div>
+
+        {authUser === null ? (
+          <div>
+            <button className="px-10 font-bold" onClick={showLoginForm}>
+              Login
+            </button>
+            <button
+              className="bg-black px-6 py-2 text-white"
+              onClick={showSignup}
+            >
+              Sign up
+            </button>
+          </div>
+        ) : (
+          <div className="flex items-center">
+            <p className="mx-8">
+              Welcome,{' '}
+              <span className="font-bold">
+                {authUser.email.substring(0, authUser.email.indexOf('@'))}
+              </span>
+            </p>
+            <button
+              className="bg-black px-6 py-2 text-white"
+              onClick={() => {
+                signOut(auth)
+              }}
+            >
+              Log Out
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="header pl-16 mt-10">
@@ -127,6 +149,7 @@ const Signup = () => {
           more.
         </p>
       </div>
+
       <SignupForm isSignup={signup} cancelSignup={showSignup} />
       <LoginForm isLogin={login} cancelLogin={showLoginForm} />
     </div>

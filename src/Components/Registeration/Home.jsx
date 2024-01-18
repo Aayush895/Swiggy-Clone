@@ -2,7 +2,7 @@ import Features from './Features'
 import Hero from './Hero'
 import Signup from './Signup'
 
-const Registeration = () => {
+const Home = () => {
   return (
     <div className='registeration'>
       <Signup />
@@ -11,4 +11,4 @@ const Registeration = () => {
     </div>
   )
 }
-export default Registeration
+export default Home
