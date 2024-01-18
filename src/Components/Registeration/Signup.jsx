@@ -1,9 +1,16 @@
 import { FaLocationCrosshairs } from 'react-icons/fa6'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { LIVE_API } from '../../utils'
+import { auth } from '../../firebase'
+import { onAuthStateChanged } from 'firebase/auth'
+import SignupForm from './SignupForm'
+import LoginForm from './LoginForm'
 
 const Signup = () => {
   const [location, setLocation] = useState(null)
+  const [signup, setSignup] = useState(false)
+  const [login, setLogin] = useState(false)
+  const [authUser, setAuthUser] = useState(null)
 
   async function fetchLiveData() {
     const fullUrl = `${LIVE_API}lat=${location.lat}&lng=${location.lng}`
@@ -27,6 +34,33 @@ const Signup = () => {
 
     navigator.geolocation.getCurrentPosition(success, error)
   }
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setAuthUser(user)
+      } else {
+        setAuthUser(null)
+      }
+    })
+  }, [])
+
+  function showSignup() {
+    if (signup) {
+      setSignup(false)
+    } else {
+      setSignup(true)
+    }
+  }
+
+  function showLoginForm() {
+    if(login) {
+      setLogin(false)
+    } else {
+      setLogin(true)
+    }
+  }
+
   return (
     <div className="signup-container p-14">
       <div className="signup-navbar flex items-center justify-between">
@@ -37,8 +71,13 @@ const Signup = () => {
           />
         </div>
         <div>
-          <button className="px-10 font-bold">Login</button>
-          <button className="bg-black px-6 py-2 text-white">Sign up</button>
+          <button className="px-10 font-bold" onClick={showLoginForm}>Login</button>
+          <button
+            className="bg-black px-6 py-2 text-white"
+            onClick={showSignup}
+          >
+            Sign up
+          </button>
         </div>
       </div>
 
@@ -54,16 +93,23 @@ const Signup = () => {
           <p className="text-gray-500 text-xl">
             Click on locate for delivery location
           </p>
-          <button className="flex justify-between items-center mx-5 cursor-pointer" onClick={fetchLocation}>
+          <button
+            className="flex justify-between items-center mx-5 cursor-pointer"
+            onClick={fetchLocation}
+          >
             <FaLocationCrosshairs />
             Locate Me
           </button>
         </div>
 
-        {location ? <button className="bg-orange-500 p-4 mt-16 px-3 text-white font-bold tracking-wide" onClick={fetchLiveData}>
-          FIND FOOD
-        </button> : null}
-        
+        {location ? (
+          <button
+            className="bg-orange-500 p-4 mt-16 px-3 text-white font-bold tracking-wide"
+            onClick={fetchLiveData}
+          >
+            FIND FOOD
+          </button>
+        ) : null}
       </div>
 
       <div className="header-content mt-12 ml-16">
@@ -81,6 +127,8 @@ const Signup = () => {
           more.
         </p>
       </div>
+      <SignupForm isSignup={signup} cancelSignup={showSignup} />
+      <LoginForm isLogin={login} cancelLogin={showLoginForm} />
     </div>
   )
 }
