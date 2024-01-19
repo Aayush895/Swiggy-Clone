@@ -1,23 +1,16 @@
 import { FaLocationCrosshairs } from 'react-icons/fa6'
 import { useState, useEffect } from 'react'
-import { LIVE_API } from '../../utils'
 import { auth } from '../../firebase'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
 import SignupForm from './SignupForm'
 import LoginForm from './LoginForm'
+import { Link } from 'react-router-dom'
 
 const Signup = () => {
   const [location, setLocation] = useState(null)
   const [signup, setSignup] = useState(false)
   const [login, setLogin] = useState(false)
   const [authUser, setAuthUser] = useState(null)
-
-  async function fetchLiveData() {
-    const fullUrl = `${LIVE_API}lat=${location.lat}&lng=${location.lng}`
-    const data = await fetch(fullUrl)
-    const json = await data.json()
-    console.log(json)
-  }
 
   async function fetchLocation() {
     function success(pos) {
@@ -125,11 +118,10 @@ const Signup = () => {
         </div>
 
         {location ? (
-          <button
-            className="bg-orange-500 p-4 mt-16 px-3 text-white font-bold tracking-wide"
-            onClick={fetchLiveData}
-          >
-            FIND FOOD
+          <button className="bg-orange-500 p-4 mt-16 px-3 text-white font-bold tracking-wide">
+            <Link to={'/restaurants'} state={location}>
+              FIND FOOD
+            </Link>
           </button>
         ) : null}
       </div>

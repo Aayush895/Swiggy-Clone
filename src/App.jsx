@@ -1,9 +1,8 @@
-import Home from './Components/Registeration/Home'
-
+import { Outlet } from 'react-router-dom'
 function App() {
   return (
     <>
-      <Home />
+      <Outlet />
     </>
   )
 }
