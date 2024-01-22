@@ -2,12 +2,12 @@
 import { useLocation } from 'react-router-dom'
 import { LIVE_API } from '../../utils'
 import { useEffect } from 'react'
+import Nav from './Nav'
 
 const Home = () => {
   let { state } = useLocation()
   const url = `${LIVE_API}lat=${state.lat}&lng=${state.lng}`
 
-  // TODO: Have to convert the restaurant fetching useEffect into a custom hook
   useEffect(() => {
     const fetchRestaurants = async (url) => {
       const fetchData = await fetch(url)
@@ -17,6 +17,10 @@ const Home = () => {
 
     fetchRestaurants(url)
   }, [])
-  return <div className="text-black">Hi, I display all the restuarants</div>
+  return (
+    <>
+      <Nav lat={state.lat} long={state.lng}/>
+    </>
+  )
 }
 export default Home
