@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useLocation } from 'react-router-dom'
 import { LIVE_API } from '../../utils'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Nav from './Nav'
+import Header from './Header'
 
 const Home = () => {
+  const [resData, setResData] = useState(null)
   let { state } = useLocation()
   const url = `${LIVE_API}lat=${state.lat}&lng=${state.lng}`
 
@@ -12,7 +14,8 @@ const Home = () => {
     const fetchRestaurants = async (url) => {
       const fetchData = await fetch(url)
       const jsonData = await fetchData.json()
-      console.log(jsonData)
+      console.log(jsonData);
+      setResData(jsonData)
     }
 
     fetchRestaurants(url)
@@ -20,6 +23,7 @@ const Home = () => {
   return (
     <>
       <Nav lat={state.lat} long={state.lng}/>
+      <Header header= {resData?.data?.cards[0]?.card?.card?.header?.title} resImages = {resData?.data?.cards[0]?.card?.card?.imageGridCards?.info}/>
     </>
   )
 }
