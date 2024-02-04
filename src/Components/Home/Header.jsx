@@ -33,7 +33,7 @@ const Header = ({ header, resImages }) => {
       {!resImages ? (
         <h1>Loading....</h1>
       ) : (
-        <div className="res-images relative flex items-center mt-14">
+        <div className="relative flex items-center mt-14">
           <div
             className="m-auto border-b w-[75%] h-full overflow-x-hidden scroll whitespace-nowrap scroll-smooth overflow-y-hidden"
             ref={scrollRef}
