@@ -2,7 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  overflow-x: hidden;
+}
+
 .registeration {
   display: grid;
   grid-template-columns: 1.5fr 1fr;
 }
+

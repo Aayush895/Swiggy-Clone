@@ -4,6 +4,7 @@ import { LIVE_API } from '../../utils'
 import { useEffect, useState } from 'react'
 import Nav from './Nav'
 import Header from './Header'
+import TopRestaurants from './TopRestaurants'
 
 const Home = () => {
   const [resData, setResData] = useState(null)
@@ -14,7 +15,6 @@ const Home = () => {
     const fetchRestaurants = async (url) => {
       const fetchData = await fetch(url)
       const jsonData = await fetchData.json()
-      console.log(jsonData);
       setResData(jsonData)
     }
 
@@ -22,8 +22,18 @@ const Home = () => {
   }, [])
   return (
     <>
-      <Nav lat={state.lat} long={state.lng}/>
-      <Header header= {resData?.data?.cards[0]?.card?.card?.header?.title} resImages = {resData?.data?.cards[0]?.card?.card?.imageGridCards?.info}/>
+      <Nav lat={state.lat} long={state.lng} />
+      <Header
+        header={resData?.data?.cards[0]?.card?.card?.header?.title}
+        resImages={resData?.data?.cards[0]?.card?.card?.imageGridCards?.info}
+      />
+      <TopRestaurants
+        header={resData?.data?.cards[1]?.card?.card?.header?.title}
+        topRes={
+          resData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+            ?.restaurants
+        }
+      />
     </>
   )
 }
