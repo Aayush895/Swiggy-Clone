@@ -12,13 +12,13 @@ const TopRestaurantCard = ({
   area,
 }) => {
   return (
-    <div className="w-[100%]">
+    <div className="w-[28%] p-2 ml-7 inline-block">
       <img
         src={`${TOP_RES}${imgId}`}
         alt="resImage"
-        className="w-[300px] h-[150px] rounded-2xl shadow-2xl"
+        className="w-[100%] h-[150px] rounded-2xl shadow-2xl"
       />
-      <h1 className="font-bold text-lg mt-4 ml-4">{name}</h1>
+      <h1 className="font-bold text-lg mt-4 ml-4 truncate">{name}</h1>
       <div className="flex ml-4">
         <p className="flex items-center font-bold">
           <MdStars color="green" />
@@ -29,10 +29,16 @@ const TopRestaurantCard = ({
           {deliveryTime}
         </p>
       </div>
-      <p className="ml-4">
-        {cuisines[0]}, {cuisines[1]}
-      </p>
-      <p className="ml-4">{area}</p>
+
+      <div className="flex mx-3 truncate">
+        {cuisines.map((cuisine, idx) => (
+          <p key={idx} className="mx-[0.1rem] text-slate-500">
+            {cuisine},
+          </p>
+        ))}
+      </div>
+
+      <p className="ml-4 text-slate-500">{area}</p>
     </div>
   )
 }
