@@ -15,7 +15,7 @@ const TopRestaurants = ({ header, topRes }) => {
 
   return (
     <>
-      <div className="text-center mt-10 font-bold text-3xl flex justify-around -mx-4">
+      <div className="text-center mt-10 font-bold text-3xl flex justify-around -mx-8">
         <h1>{header}</h1>
         <div className="arrows flex justify-around items-center">
           <FaArrowCircleLeft
@@ -35,7 +35,7 @@ const TopRestaurants = ({ header, topRes }) => {
       ) : (
         <div className="relative flex items-center mt-10">
           <div
-            className="m-auto border-b w-[75%] h-full overflow-x-hidden scroll whitespace-nowrap scroll-smooth overflow-y-hidden"
+            className="m-auto border-b w-[75%] h-full overflow-x-hidden scroll whitespace-nowrap scroll-smooth overflow-y-hidden pb-10"
             ref={scroll}
           >
             {topRes.map((res) => (

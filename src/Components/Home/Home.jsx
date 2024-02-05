@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import Nav from './Nav'
 import Header from './Header'
 import TopRestaurants from './TopRestaurants'
+import Restaurant from './Restaurant'
 
 const Home = () => {
   const [resData, setResData] = useState(null)
@@ -31,6 +32,13 @@ const Home = () => {
         header={resData?.data?.cards[1]?.card?.card?.header?.title}
         topRes={
           resData?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+            ?.restaurants
+        }
+      />
+      <Restaurant
+        header={resData?.data?.cards[2]?.card?.card?.title}
+        res={
+          resData?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
             ?.restaurants
         }
       />
